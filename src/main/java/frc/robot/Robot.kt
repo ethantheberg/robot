@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
-import com.revrobotics.CANSparkMax
-import com.revrobotics.CANSparkMaxLowLevel
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,78 +15,68 @@ import com.revrobotics.CANSparkMaxLowLevel
  * project.
  */
 class Robot : TimedRobot() {
-    private var m_autonomousCommand: Command? = null
-    private var m_robotContainer: RobotContainer? = null
-    val controller = XboxController(0)
-    val leftMotor = CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless)
-    val rightMotor = CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)
-    /**
-     * This function is run when the robot is first started up and should be used for any
-     * initialization code.
-     */
-    override fun robotInit() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
-        m_robotContainer = RobotContainer()
+  private var m_driveCommand: Command? = null
+  private var m_robotContainer: RobotContainer? = null
+  val controller = XboxController(0)
+  // val leftMotor = CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless)
+  // val rightMotor = CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)
+  /**
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
+   */
+  override fun robotInit() {
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    m_robotContainer = RobotContainer()
+  }
+
+  /**
+   * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
+   * that you want ran during disabled, autonomous, teleoperated and test.
+   *
+   * This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard
+   * integrated updating.
+   */
+  override fun robotPeriodic() {
+    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // commands, running already-scheduled commands, removing finished or interrupted commands,
+    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run()
+  }
+
+  /** This function is called once each time the robot enters Disabled mode. */
+  override fun disabledInit() {}
+  override fun disabledPeriodic() {}
+
+  /** This autonomous runs the autonomous command selected by your [RobotContainer] class. */
+  override fun autonomousInit() {}
+
+  /** This function is called periodically during autonomous. */
+  override fun autonomousPeriodic() {}
+  override fun teleopInit() {
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (m_driveCommand != null) {
+      m_driveCommand!!.cancel()
     }
+  }
 
-    /**
-     * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
-     * that you want ran during disabled, autonomous, teleoperated and test.
-     *
-     *
-     * This runs after the mode specific periodic functions, but before LiveWindow and
-     * SmartDashboard integrated updating.
-     */
-    override fun robotPeriodic() {
-        // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-        // commands, running already-scheduled commands, removing finished or interrupted commands,
-        // and running subsystem periodic() methods.  This must be called from the robot's periodic
-        // block in order for anything in the Command-based framework to work.
-        CommandScheduler.getInstance().run()
-    }
+  /** This function is called periodically during operator control. */
+  override fun teleopPeriodic() {}
+  override fun testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll()
+  }
 
-    /** This function is called once each time the robot enters Disabled mode.  */
-    override fun disabledInit() {}
-    override fun disabledPeriodic() {}
+  /** This function is called periodically during test mode. */
+  override fun testPeriodic() {}
 
-    /** This autonomous runs the autonomous command selected by your [RobotContainer] class.  */
-    override fun autonomousInit() {
-        m_autonomousCommand = m_robotContainer?.autonomousCommand
+  /** This function is called once when the robot is first started up. */
+  override fun simulationInit() {}
 
-        // schedule the autonomous command (example)
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand!!.schedule()
-        }
-    }
-
-    /** This function is called periodically during autonomous.  */
-    override fun autonomousPeriodic() {}
-    override fun teleopInit() {
-        // This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand!!.cancel()
-        }
-    }
-
-    /** This function is called periodically during operator control.  */
-    override fun teleopPeriodic() {
-        
-    }
-    override fun testInit() {
-        // Cancels all running commands at the start of test mode.
-        CommandScheduler.getInstance().cancelAll()
-    }
-
-    /** This function is called periodically during test mode.  */
-    override fun testPeriodic() {}
-
-    /** This function is called once when the robot is first started up.  */
-    override fun simulationInit() {}
-
-    /** This function is called periodically whilst in simulation.  */
-    override fun simulationPeriodic() {}
+  /** This function is called periodically whilst in simulation. */
+  override fun simulationPeriodic() {}
 }

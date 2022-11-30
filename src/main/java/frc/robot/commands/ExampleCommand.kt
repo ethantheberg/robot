@@ -6,29 +6,29 @@ package frc.robot.commands
 import edu.wpi.first.wpilibj2.command.CommandBase
 import frc.robot.subsystems.ExampleSubsystem
 
-/** An example command that uses an example subsystem.  */
+/** An example command that uses an example subsystem. */
 class ExampleCommand(private val m_subsystem: ExampleSubsystem) : CommandBase() {
-    /**
-     * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
-    init {
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_subsystem)
-    }
+  /**
+   * Creates a new ExampleCommand.
+   *
+   * @param subsystem The subsystem used by this command.
+   */
+  init {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_subsystem)
+  }
 
-    // Called when the command is initially scheduled.
-    override fun initialize() {}
+  // Called when the command is initially scheduled.
+  override fun initialize() {}
 
-    // Called every time the scheduler runs while the command is scheduled.
-    override fun execute() {}
+  // Called every time the scheduler runs while the command is scheduled.
+  override fun execute() {}
 
-    // Called once the command ends or is interrupted.
-    override fun end(interrupted: Boolean) {}
+  // Called once the command ends or is interrupted.
+  override fun end(interrupted: Boolean) {}
 
-    // Returns true when the command should end.
-    override fun isFinished(): Boolean {
-        return false
-    }
+  // Returns true when the command should end.
+  override fun isFinished(): Boolean {
+    return false
+  }
 }
