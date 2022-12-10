@@ -13,8 +13,8 @@ class DriveRobot(val drivetrain: DrivetrainSubsystem, val controller: XboxContro
 
   // Called every time the scheduler runs while the command is scheduled.
   override fun execute() {
-    val left = controller.leftY / 4
-    val right = controller.rightY / 4
+    val left = controller.leftY / 2
+    val right = controller.rightY / 2
     drivetrain.tankDrive(left, right)
   }
 

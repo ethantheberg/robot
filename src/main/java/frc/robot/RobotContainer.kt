@@ -19,8 +19,8 @@ import frc.robot.subsystems.DrivetrainSubsystem
 class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private val controller = XboxController(0)
-  private val leftMotor = CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless)
-  private val rightMotor = CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)
+  private val leftMotor = CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)
+  private val rightMotor = CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless)
   private val m_drivetrainSubsystem = DrivetrainSubsystem(leftMotor, rightMotor, controller)
   private val m_driveCommand = DriveRobot(m_drivetrainSubsystem, controller)
 

@@ -14,7 +14,7 @@ class DrivetrainSubsystem(
 
   init {
     resetEncoders()
-    leftMotor.inverted = true
+    //leftMotor.inverted = true
   }
 
   override fun periodic() {}
@@ -24,7 +24,8 @@ class DrivetrainSubsystem(
   }
   fun tankDrive(left: Double, right: Double) {
     leftMotor.set(left)
-    rightMotor.set(right)
+    print("left: $left \n right: $right")
+    rightMotor.set(-right)
   }
   fun setVoltage(left: Double, right: Double) {
     leftMotor.setVoltage(left)
